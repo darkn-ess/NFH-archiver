@@ -1,5 +1,6 @@
 {
   "name": "NFH-archiver",
+  "homepage": "https://darkn-ess.github.com/NFH-archiver/",
   "private": true,
   "version": "1.0.0",
   "type": "module",
