@@ -9,35 +9,47 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 100vh;
+    background: rgba(241, 245, 249, 0.5);
+    border-radius: 8px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(156, 163, 175, 0.5);
-    border-radius: 100vh;
+    background: rgba(156, 163, 175, 0.6);
+    border-radius: 8px;
     transition: background-color 0.2s ease-in-out;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(156, 163, 175, 0.7);
+    background: rgba(156, 163, 175, 0.8);
   }
 
   .dark .custom-scrollbar {
-    scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+    scrollbar-color: rgba(75, 85, 99, 0.6) transparent;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5);
   }
 
   .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(75, 85, 99, 0.5);
+    background: rgba(75, 85, 99, 0.6);
   }
 
   .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(75, 85, 99, 0.7);
+    background: rgba(75, 85, 99, 0.8);
+  }
+  
+  .file-list-item {
+    @apply transition-all duration-200;
+  }
+  
+  .file-list-item:hover {
+    @apply transform scale-[1.005];
   }
 }
 
