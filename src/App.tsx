@@ -264,78 +264,81 @@ function App() {
 
           {/* Extracted Files Section */}
           {mode === 'decompress' && extractedFiles.length > 0 && (
-            <div className="mt-5">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-3">
+            <div className="mt-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-lg font-medium text-slate-800 dark:text-white">
+                  <h3 className="text-lg font-medium text-slate-800 dark:text-white flex items-center">
+                    <Folder className="w-5 h-5 mr-2 text-blue-500" />
                     Extracted Files
                   </h3>
                   <button
                     onClick={toggleSelectMode}
-                    className="text-sm text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+                    className="text-sm px-2 py-1 rounded-md bg-slate-100 dark:bg-gray-700 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 hover:bg-slate-200 dark:hover:bg-gray-600 transition-colors"
                   >
                     {selectMode ? 'Cancel Selection' : 'Select Files'}
                   </button>
                 </div>
-                <div className="flex gap-2 w-full sm:w-auto">
+                <div className="flex gap-3 w-full sm:w-auto">
                   {selectMode && selectedCount > 0 && (
                     <button
                       onClick={handleDownloadSelected}
-                      className="flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors shadow-sm w-full sm:w-auto justify-center"
+                      className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors shadow-sm w-full sm:w-auto justify-center"
                     >
-                      <Download className="w-4 h-4 mr-1.5" />
+                      <Download className="w-4 h-4 mr-2" />
                       Download Selected ({selectedCount})
                     </button>
                   )}
                   {bundleUrl && (
                     <button
                       onClick={() => handleDownload(bundleUrl, `${originalFileName}.zip`)}
-                      className="flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors shadow-sm w-full sm:w-auto justify-center"
+                      className="flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors shadow-sm w-full sm:w-auto justify-center"
                     >
-                      <Package className="w-4 h-4 mr-1.5" />
+                      <Package className="w-4 h-4 mr-2" />
                       Download All
                     </button>
                   )}
                 </div>
               </div>
-              <div className="space-y-1.5 max-h-60 overflow-y-auto custom-scrollbar">
-                {extractedFiles.map((file, index) => (
-                  <div
-                    key={file.name}
-                    className={`flex items-center justify-between p-2 bg-slate-50 dark:bg-gray-700 rounded-lg cursor-pointer transition-all duration-200 hover:bg-slate-100 dark:hover:bg-gray-600 ${
-                      selectMode && file.selected ? 'ring-2 ring-blue-500' : ''
-                    }`}
-                    onClick={() => selectMode && handleSelectFile(index)}
-                    role={selectMode ? 'button' : undefined}
-                  >
-                    <div className="flex items-center flex-1 min-w-0 gap-2">
-                      {selectMode && (
-                        <div className={`w-4 h-4 rounded border ${
-                          file.selected 
-                            ? 'bg-blue-500 border-blue-500' 
-                            : 'border-gray-300 dark:border-gray-500'
-                        } flex items-center justify-center`}>
-                          {file.selected && <Check className="w-3 h-3 text-white" />}
-                        </div>
+              <div className="border border-slate-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <div className="max-h-72 overflow-y-auto custom-scrollbar">
+                  {extractedFiles.map((file, index) => (
+                    <div
+                      key={file.name}
+                      className={`flex items-center justify-between p-3 hover:bg-slate-100 dark:hover:bg-gray-700 transition-all duration-200 border-b border-slate-200 dark:border-gray-700 last:border-b-0 ${
+                        selectMode && file.selected ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                      }`}
+                      onClick={() => selectMode && handleSelectFile(index)}
+                      role={selectMode ? 'button' : undefined}
+                    >
+                      <div className="flex items-center flex-1 min-w-0 gap-3">
+                        {selectMode && (
+                          <div className={`w-5 h-5 rounded-md border-2 ${
+                            file.selected 
+                              ? 'bg-blue-500 border-blue-500' 
+                              : 'border-gray-300 dark:border-gray-500'
+                          } flex items-center justify-center transition-colors`}>
+                            {file.selected && <Check className="w-3 h-3 text-white" />}
+                          </div>
+                        )}
+                        <span className="text-sm font-medium text-slate-700 dark:text-gray-200 truncate">
+                          {file.name}
+                        </span>
+                      </div>
+                      {!selectMode && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDownload(file.url, file.name);
+                          }}
+                          className="flex items-center px-3 py-1.5 ml-2 text-sm bg-blue-50 dark:bg-blue-900/20 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors shrink-0"
+                        >
+                          <Download className="w-4 h-4 mr-1.5" />
+                          Download
+                        </button>
                       )}
-                      <span className="text-sm text-slate-700 dark:text-gray-300 truncate">
-                        {file.name}
-                      </span>
                     </div>
-                    {!selectMode && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDownload(file.url, file.name);
-                        }}
-                        className="flex items-center px-2 py-1 text-sm text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 shrink-0"
-                      >
-                        <Download className="w-4 h-4 mr-1" />
-                        Download
-                      </button>
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           )}
