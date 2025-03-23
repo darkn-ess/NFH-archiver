@@ -304,7 +304,7 @@ function App() {
                   {extractedFiles.map((file, index) => (
                     <div
                       key={file.name}
-                      className={`flex items-center justify-between p-3 hover:bg-slate-100 dark:hover:bg-gray-700 transition-all duration-200 border-b border-slate-200 dark:border-gray-700 last:border-b-0 ${
+                      className={`flex items-center justify-between p-3 hover:bg-slate-100 dark:hover:bg-gray-700 transition-all duration-200 border-b border-slate-200 dark:border-gray-700 last:border-b-0 file-list-item ${
                         selectMode && file.selected ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                       }`}
                       onClick={() => selectMode && handleSelectFile(index)}
